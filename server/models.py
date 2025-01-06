@@ -24,7 +24,7 @@ class Employee(db.Model):
 
     # Relationship mapping employee to related onboarding
     onboarding = db.relationship(
-        'Onboarding', uselist=False, back_populates='employee'
+        'Onboarding', uselist=False, back_populates='employee', cascade='all, delete-orphan'
     )
 
     def __repr__(self):
@@ -42,7 +42,7 @@ class Onboarding(db.Model):
     employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'))
 
     # Relationship mapping onboarding to related employee
-    employee = db.relationship('Employee', back_populates='onboarding', cascade='all, delete-orphan')
+    employee = db.relationship('Employee', back_populates='onboarding')
 
     def __repr__(self):
         return f"<Onboarding {self.id}, {self.orientation}, {self.forms_complete}>"
